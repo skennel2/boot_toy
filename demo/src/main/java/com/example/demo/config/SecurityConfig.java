@@ -14,14 +14,17 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.example.demo.repository.AccountRepositiry;
+import com.example.demo.repository.AccountRepository;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	private AccountRepositiry accountRepositiry;
+	private AccountRepository accountRepositiry;
 	
 	@Bean
 	UserDetailsService userDetailService() {
@@ -39,10 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.anyRequest().authenticated()
+			.anyRequest().permitAll()
 			.and()
-			.oauth2Login();
-		super.configure(http);
+			.csrf();
+			
 	}	
 	
 	@Override

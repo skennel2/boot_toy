@@ -15,14 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.domain.Account;
-import com.example.demo.repository.AccountRepositiry;
+import com.example.demo.repository.AccountRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
 
 	@Autowired
-	AccountRepositiry accountRepo;
+	AccountRepository accountRepo;
 	
 	@Test
 	public void contextLoads() {

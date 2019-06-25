@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Account;
-import com.example.demo.repository.AccountRepositiry;
+import com.example.demo.repository.AccountRepository;
 
 @RestController
 @RequestMapping(path = "/account")
 public class AccountRestController {
 	
 	@Autowired
-	private AccountRepositiry accountRepo;
+	private AccountRepository accountRepo;
 	
 	@RequestMapping(method = RequestMethod.OPTIONS)
 	public ResponseEntity<?> options(){
@@ -38,7 +38,7 @@ public class AccountRestController {
 				.orElseThrow(() ->new RuntimeException());		
 	}
 	
-	@GetMapping
+	@GetMapping(path = "/all")
 	public ResponseEntity<List<Account>> getAll(){
 		return ResponseEntity.ok(accountRepo.findAll());
 	}
