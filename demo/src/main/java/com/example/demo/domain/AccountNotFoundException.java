@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.domain;
 
 public class AccountNotFoundException extends RuntimeException{
 
