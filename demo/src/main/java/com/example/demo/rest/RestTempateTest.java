@@ -3,6 +3,7 @@ package com.example.demo.rest;
 import java.io.IOException;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +18,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RestTempateTest {
 
 	@GetMapping(path = "/employee/{id}")
-	public ResponseEntity<Employee> getAllEmployees(@PathVariable Long id) throws IOException{
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) throws IOException{
 		RestTemplate restTemplate = new RestTemplateBuilder()
 				.defaultMessageConverters()
 				.rootUri("http://dummy.restapiexample.com/api/v1/")				
 				.build();
 		
+		// 해당 api의 accept header가 html타입이라 일단 String으로 받음 
 		String data = restTemplate.getForObject("/employee/{id}", String.class, id);
 		
 		Employee emp =  new ObjectMapper()
@@ -31,4 +33,5 @@ public class RestTempateTest {
 		
 		return ResponseEntity.ok(emp);
 	}
+	
 }
