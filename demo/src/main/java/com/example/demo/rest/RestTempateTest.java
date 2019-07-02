@@ -3,10 +3,6 @@ package com.example.demo.rest;
 import java.io.IOException;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +12,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * http://dummy.restapiexample.com/
+ * 해당 사이트에서 Rest Api제공받음
+ * 
+ * @author skennel
+ *
+ */
 @RestController
 @RequestMapping(path = "/rest/api/")
 public class RestTempateTest {
