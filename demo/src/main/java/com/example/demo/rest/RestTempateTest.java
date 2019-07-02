@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,4 +37,15 @@ public class RestTempateTest {
 		return ResponseEntity.ok(emp);
 	}
 	
+	@GetMapping(path = "/self/employee/{id}")
+	public ResponseEntity<Employee> selfCall(@PathVariable Long id) throws IOException{
+		RestTemplate restTemplate = new RestTemplateBuilder()
+				.defaultMessageConverters()
+				.rootUri("http://localhost:8080/rest/api/")				
+				.build();
+		
+		// 해당 api의 accept header가 application/json 바로 Serialize 가능함 
+		Employee data = restTemplate.getForObject("/employee/{id}", Employee.class, id);		
+		return ResponseEntity.ok(data);
+	}
 }
