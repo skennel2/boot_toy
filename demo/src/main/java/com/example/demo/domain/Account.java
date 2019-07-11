@@ -6,10 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Account {
-	@Id
-	@GeneratedValue
-	private Long id;
+public class Account extends EntityBase{
 
 	@Column(name = "login_id", unique = true, length = 30)
 	private String loginId;
@@ -19,7 +16,7 @@ public class Account {
 
 	public Account(Long id, String loginId, String password) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.loginId = loginId;
 		this.password = password;
 	}
@@ -31,10 +28,6 @@ public class Account {
 	}
 
 	protected Account() {
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getLoginId() {
