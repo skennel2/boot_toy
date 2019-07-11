@@ -1,7 +1,6 @@
 package com.example.demo.rest;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
@@ -65,7 +64,7 @@ public class RestTempateTest {
 	}
 
 	@GetMapping(path = "/self/employee/{id}")
-	public ResponseEntity<Employee> selfCall(@PathVariable Long id) throws IOException {
+	public ResponseEntity<Employee> getEmployeeByIdUsingSelfCall(@PathVariable Long id) throws IOException {
 		RestTemplate restTemplate = new RestTemplateBuilder()
 				.rootUri("http://localhost:8080/rest/api/")
 				.build();
