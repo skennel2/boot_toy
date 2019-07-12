@@ -19,7 +19,7 @@ import com.example.demo.article.repository.AccountRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DemoApplicationTests {
+public class AccountRepositoryTest {
 
 	@Autowired
 	AccountRepository accountRepo;
@@ -49,7 +49,7 @@ public class DemoApplicationTests {
 	}
 	
 	@Test
-	public void persist_audit_test() {
+	public void persist_auditing_test() {
 		Account account = new Account("skennel", "1234");
 		
 		accountRepo.save(account);
