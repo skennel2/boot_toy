@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class AccountJoinRequest {
 	@JsonProperty(value = "login_id")
 	private String loginId;
+	
 	@JsonProperty(value = "password")
 	private String password;
+	
 	@JsonProperty(value = "password_check")
 	private String passwordCheck;
 
