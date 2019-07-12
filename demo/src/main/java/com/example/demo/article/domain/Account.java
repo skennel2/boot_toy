@@ -1,12 +1,10 @@
-package com.example.demo.domain;
+package com.example.demo.article.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
-public class Account extends EntityBase{
+public class Account extends EntityBase {
 
 	@Column(name = "login_id", unique = true, length = 30)
 	private String loginId;
@@ -20,9 +18,9 @@ public class Account extends EntityBase{
 		this.loginId = loginId;
 		this.password = password;
 	}
-	
+
 	public Account(String loginId, String password) {
-		super();	
+		super();
 		this.loginId = loginId;
 		this.password = password;
 	}
@@ -37,4 +35,10 @@ public class Account extends EntityBase{
 	public String getPassword() {
 		return password;
 	}
+
+	@Override
+	public String toString() {
+		return "Account [loginId=" + loginId + ", password=" + password + "]";
+	}
+
 }
