@@ -1,11 +1,11 @@
 package com.example.demo.config;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -19,12 +19,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		 		.antMatchers("/api/account/**").authenticated()
-			.and()
-				.csrf()
-					.disable()
-				.httpBasic();
+		http.csrf()
+				.disable()
+			.authorizeRequests()
+				.antMatchers("/api/**").authenticated()
+				.and()
+			.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+			.httpBasic();
+		
+		// 매번 Request 마다 ID:PWD를 전송하기 때문에 SSL(HTTPS) 사용이 필수
+		// 8443이 SSL 포트일 경우 사용시
+		//http.portMapper().http(8080).mapsTo(8443);
 	}	
 	
 	@Override
@@ -36,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService())
 			.passwordEncoder(new NoOpPasswordEncoder());	
-		
+
 		super.configure(auth);
 	}
 	

@@ -55,12 +55,12 @@ public class AccountRestController {
 	
 	@PutMapping("/join")
 	public ResponseEntity<Void> join(@RequestBody AccountJoinRequest request){
-		Account newAccount = new Account(request.getLoginId(), request.getPassword());
+		// TODO 임시 no op 비밀번호
+		Account newAccount = new Account(request.getLoginId(), "{noop}".concat(request.getPassword()));
 		accountRepo.save(newAccount);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	
+		
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		accountRepo.deleteById(id);

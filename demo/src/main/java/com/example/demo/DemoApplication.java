@@ -8,6 +8,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.demo.article.domain.Account;
 import com.example.demo.article.repository.AccountRepository;
 
+/**
+ * Spring Security를 이용한 Basic Authentication https://fntg.tistory.com/191
+ * https://www.popit.kr/spring-security-ajax-%ED%98%B8%EC%B6%9C-%EC%8B%9C-csrf-%EA%B4%80%EB%A0%A8-403-forbidden-%EC%97%90%EB%9F%AC/
+ * https://www.mkyong.com/spring-boot/spring-security-there-is-no-passwordencoder-mapped-for-the-id-null/
+ * http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/
+ * https://m.blog.naver.com/PostView.nhn?blogId=wizardkyn&logNo=220647117154&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+ * @author skennel
+ *
+ */
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
 
@@ -21,6 +30,8 @@ public class DemoApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		accountRepository.deleteAll();
-		accountRepository.save(new Account("skennel", "1234"));
+		
+		// TODO {nopo}을 붙인이유 https://www.mkyong.com/spring-boot/spring-security-there-is-no-passwordencoder-mapped-for-the-id-null/
+		accountRepository.save(new Account("skennel", "{noop}1234"));
 	}
 }
