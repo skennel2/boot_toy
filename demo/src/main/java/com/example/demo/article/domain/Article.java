@@ -16,7 +16,7 @@ public class Article extends EntityBase{
 	@Column(name = "contents", length = 300, nullable = true)
 	private String contents;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "writer")
 	private Account writer;
 	

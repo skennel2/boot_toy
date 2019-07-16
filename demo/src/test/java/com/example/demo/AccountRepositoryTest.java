@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -61,6 +62,9 @@ public class AccountRepositoryTest {
 	@Test
 	public void ArticleRepository_저장테스트() {
 		Account account = new Account("skennel", "1234");	
+		
+		accountRepo.save(account);
+		
 		Article article = new Article("Test", "냉무", account);
 		
 		articleRepo.save(article);
@@ -85,8 +89,26 @@ public class AccountRepositoryTest {
 		assertEquals(LocalDateTime.now().getYear(), createdDateTime.getYear());
 	}
 	
+	@Test
+	public void getByWriterIdTest() {
+		Account account = new Account("skennel", "1234");	
+		accountRepo.save(account);
+		
+		Article article = new Article("Test", "냉무", account);
+		Article article2 = new Article("Test2", "냉무", account);
+		
+		articleRepo.save(article);
+		articleRepo.save(article2);
+		articleRepo.flush();
+		
+		List<Article> result = articleRepo.findByWriterId(account.getId());
+		
+		assertEquals(2, result.size());
+	}
+	
 	@Before
 	public void clearData() {
+		articleRepo.deleteAll();
 		accountRepo.deleteAll();
 	}
 	

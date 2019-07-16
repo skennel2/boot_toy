@@ -8,4 +8,5 @@ import com.example.demo.article.domain.Article;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 	List<Article> findBySubject(String subject);
+	List<Article> findByWriterId(Long id);
 }
