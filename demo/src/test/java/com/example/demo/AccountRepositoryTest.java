@@ -15,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.article.domain.Account;
+import com.example.demo.article.domain.Article;
 import com.example.demo.article.repository.AccountRepository;
+import com.example.demo.article.repository.ArticleRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,6 +26,9 @@ public class AccountRepositoryTest {
 	@Autowired
 	AccountRepository accountRepo;
 	
+	@Autowired
+	ArticleRepository articleRepo;
+	
 	@Test
 	public void contextLoads() {
 	}
@@ -31,6 +36,11 @@ public class AccountRepositoryTest {
 	@Test
 	public void AccountRepositoryLoads() {
 		assertTrue(accountRepo != null);
+	}
+	
+	@Test
+	public void ArticleRepositoryLoads() {
+		assertTrue(articleRepo != null);
 	}
 	
 	@Test
@@ -46,6 +56,21 @@ public class AccountRepositoryTest {
 		Optional<Account> accountGet = accountRepo.findById(account.getId());
 		
 		assertEquals("skennel", accountGet.get().getLoginId());
+	}
+	
+	@Test
+	public void ArticleRepository_저장테스트() {
+		Account account = new Account("skennel", "1234");	
+		Article article = new Article("Test", "냉무", account);
+		
+		articleRepo.save(article);
+		articleRepo.flush();
+		
+		Article articleGet = articleRepo.findById(article.getId()).get();
+		
+		String writerId = articleGet.getWriter().getLoginId();
+		
+		assertEquals(writerId, account.getLoginId());
 	}
 	
 	@Test
