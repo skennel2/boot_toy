@@ -17,7 +17,7 @@ import org.springframework.lang.NonNull;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 abstract public class EntityBase {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true)

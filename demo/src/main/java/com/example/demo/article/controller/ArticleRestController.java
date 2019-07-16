@@ -16,11 +16,11 @@ import com.example.demo.article.repository.ArticleRepository;
 public class ArticleRestController {
 	@Autowired
 	private ArticleRepository articleRepository;
-	
+
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Article> getById(@PathVariable Long id){
+	public ResponseEntity<Article> getById(@PathVariable Long id) {
 		return articleRepository.findById(id)
 				.map(article -> ResponseEntity.ok(article))
-				.orElseThrow(()-> new ArticleNotFoundException());
+				.orElseThrow(() -> new ArticleNotFoundException());
 	}
 }
