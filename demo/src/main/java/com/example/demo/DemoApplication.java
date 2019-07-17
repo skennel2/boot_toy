@@ -7,8 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.article.domain.Account;
 import com.example.demo.article.domain.Article;
+import com.example.demo.article.domain.Comment;
 import com.example.demo.article.repository.AccountRepository;
 import com.example.demo.article.repository.ArticleRepository;
+import com.example.demo.article.repository.CommentRepository;
 
 /**
  * Spring Security를 이용한 Basic Authentication https://fntg.tistory.com/191
@@ -28,12 +30,16 @@ public class DemoApplication implements CommandLineRunner{
 	@Autowired
 	private ArticleRepository articleRepository;
 	
+	@Autowired
+	private CommentRepository commentRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		commentRepository.deleteAll();
 		articleRepository.deleteAll();
 		accountRepository.deleteAll();
 		
@@ -42,6 +48,11 @@ public class DemoApplication implements CommandLineRunner{
 		accountRepository.save(account);
 		
 		Article article = new Article("Hello", "Hello World", account); 
-		articleRepository.save(article);		
+		articleRepository.save(article);
+		
+		Comment comment = new Comment(account, article, "This is Comment");
+		Comment comment2 = new Comment(account, article, "This is Comment2");
+		commentRepository.save(comment);
+		commentRepository.save(comment2);		
 	}
 }
