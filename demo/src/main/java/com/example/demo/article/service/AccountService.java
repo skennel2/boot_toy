@@ -39,8 +39,4 @@ public class AccountService {
 	public void deleteById(@PathVariable Long id) {
 		accountRepo.deleteById(id);
 	}
-
-	public void deleteAll() {
-		accountRepo.deleteAll();
-	}
 }

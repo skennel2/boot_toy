@@ -61,13 +61,7 @@ public class AccountRestController {
 		accountService.deleteById(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-
-	@DeleteMapping
-	public ResponseEntity<?> deleteAll() {
-		accountService.deleteAll();
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-
+	
 	@ExceptionHandler(AccountNotFoundException.class)
 	public ResponseEntity<?> notFound() {
 		return ResponseEntity.noContent().build();
