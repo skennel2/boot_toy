@@ -2,6 +2,8 @@ package com.example.demo.article.dto;
 
 import java.time.LocalDateTime;
 
+import com.example.demo.article.domain.Article;
+
 public class ArticleView {
 	private Long id;
 	private String subject;
@@ -10,6 +12,17 @@ public class ArticleView {
 	private String writerLoginId;
 	private LocalDateTime createdDate;
 
+	public static ArticleView of(Article article) {
+		ArticleView av = new ArticleView();
+		av.setId(article.getId());
+		av.setSubject(article.getSubject());
+		av.setContents(article.getContents());
+		av.setWriterId(article.getWriter().getId());
+		av.setWriterLoginId(article.getWriter().getLoginId());
+		av.setCreatedDate(article.getCreatedDateTime());
+		return av;
+	}
+	
 	public Long getId() {
 		return id;
 	}

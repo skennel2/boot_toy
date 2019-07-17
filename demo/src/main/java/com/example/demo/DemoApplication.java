@@ -6,7 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.article.domain.Account;
+import com.example.demo.article.domain.Article;
 import com.example.demo.article.repository.AccountRepository;
+import com.example.demo.article.repository.ArticleRepository;
 
 /**
  * Spring Security를 이용한 Basic Authentication https://fntg.tistory.com/191
@@ -23,15 +25,23 @@ public class DemoApplication implements CommandLineRunner{
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	@Autowired
+	private ArticleRepository articleRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		articleRepository.deleteAll();
 		accountRepository.deleteAll();
 		
 		// TODO {nopo}을 붙인이유 https://www.mkyong.com/spring-boot/spring-security-there-is-no-passwordencoder-mapped-for-the-id-null/
-		accountRepository.save(new Account("skennel", "{noop}1234"));
+		Account account = new Account("skennel", "{noop}1234");
+		accountRepository.save(account);
+		
+		Article article = new Article("Hello", "Hello World", account); 
+		articleRepository.save(article);		
 	}
 }

@@ -31,21 +31,21 @@ public class ArticleService {
 
 	public ArticleView getById(Long id) {
 		return articleRepo.findById(id)
-				.map(this::toViewModel)
+				.map(ArticleView::of)
 				.orElseThrow(()-> new ArticleNotFoundException());
 	}
 	
 	public List<ArticleView> getByWriterId(Long writerId){
 		return articleRepo.findByWriterId(writerId)
 				.stream()
-				.map(this::toViewModel)
+				.map(ArticleView::of)
 				.collect(Collectors.toList());
 	}
 	
 	public List<ArticleView> getByWriterLoginId(String writerLoginId){
 		return articleRepo.findByWriterLoginId(writerLoginId)
 				.stream()
-				.map(this::toViewModel)
+				.map(ArticleView::of)
 				.collect(Collectors.toList());
 	}
 	
@@ -56,16 +56,5 @@ public class ArticleService {
 		
 		Article newArticle = new Article(subject, contents, writer);		
 		articleRepo.save(newArticle);
-	}
-	
-	private ArticleView toViewModel(Article article) {
-		ArticleView av = new ArticleView();
-		av.setId(article.getId());
-		av.setSubject(article.getSubject());
-		av.setContents(article.getContents());
-		av.setWriterId(article.getWriter().getId());
-		av.setWriterLoginId(article.getWriter().getLoginId());
-		av.setCreatedDate(article.getCreatedDateTime());
-		return av;
 	}
 }
