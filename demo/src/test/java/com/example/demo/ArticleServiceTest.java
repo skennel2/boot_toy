@@ -3,6 +3,7 @@ package com.example.demo;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +30,8 @@ public class ArticleServiceTest {
 	
 	private Long writerId;
 	
-	public void getByWriterIdTest() {				
+	@Test
+	public void addPost_getByWriterIdTest() {				
 		articleService.addPost(writerId, "Hello", "Hello World");
 		
 		ArticleView article = articleService.getByWriterId(writerId).get(0);

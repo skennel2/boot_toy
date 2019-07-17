@@ -23,7 +23,7 @@ public class ArticleService {
 	private AccountRepository accountRepo;	
 	
 	@Autowired
-	private ArticleService(ArticleRepository articleRepo, AccountRepository accountRepo) {
+	public ArticleService(ArticleRepository articleRepo, AccountRepository accountRepo) {
 		this.articleRepo = articleRepo;
 		this.accountRepo = accountRepo;
 	}
