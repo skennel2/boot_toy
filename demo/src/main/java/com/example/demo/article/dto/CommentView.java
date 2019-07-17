@@ -18,7 +18,7 @@ public class CommentView {
 	public static CommentView of(Comment entity) {
 		CommentView view = new CommentView();
 		view.setCommentId(entity.getId());
-		view.setArticleId(entity.getTargetArticle().getId());
+		view.setArticleId(entity.getArticle().getId());
 		view.setWriterId(entity.getWriter().getId());
 		view.setContents(entity.getContents());
 		view.setCreatedDateTime(entity.getCreatedDateTime());

@@ -17,14 +17,14 @@ public class Comment extends EntityBase {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "article")
-	private Article targetArticle;
+	private Article article;
 
 	@Column(name = "contents", length = 300)
 	private String contents;
 
 	public Comment(Account writer, Article targetArticle, String contents) {
 		this.writer = writer;
-		this.targetArticle = targetArticle;
+		this.article = targetArticle;
 		this.contents = contents;
 	}
 
@@ -35,8 +35,8 @@ public class Comment extends EntityBase {
 		return writer;
 	}
 
-	public Article getTargetArticle() {
-		return targetArticle;
+	public Article getArticle() {
+		return article;
 	}
 
 	public String getContents() {
@@ -45,7 +45,7 @@ public class Comment extends EntityBase {
 
 	@Override
 	public String toString() {
-		return "Comment [writer=" + writer + ", targetArticle=" + targetArticle + ", contents=" + contents + "]";
+		return "Comment [writer=" + writer + ", article=" + article + ", contents=" + contents + "]";
 	}
 
 }

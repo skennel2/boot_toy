@@ -24,14 +24,10 @@ public class CommentRestController {
 	@Autowired
 	private CommentService commentService;
 
-	@GetMapping(path = "/byarticle/{id}")
-	public ResponseEntity<Resource<List<CommentView>>> getByArticleId(@PathVariable Long articleId) {
+	@GetMapping(path = "/byarticle/{articleId}")
+	public ResponseEntity<List<CommentView>> getByArticleId(@PathVariable Long articleId) {
 		List<CommentView> comments = commentService.getByArticleId(articleId);
 
-		Resource<List<CommentView>> articleResource = new Resource<>(comments);
-		Link link = linkTo(methodOn(CommentRestController.class).getByArticleId(articleId)).withRel("self");
-		articleResource.add(link);
-
-		return ResponseEntity.ok(articleResource);
+		return ResponseEntity.ok(comments);
 	}
 }
