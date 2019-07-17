@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.article.domain.Account;
-import com.example.demo.article.domain.AccountNotFoundException;
+import com.example.demo.article.domain.exception.AccountNotFoundException;
 import com.example.demo.article.dto.AccountJoinRequest;
 import com.example.demo.article.service.AccountService;
 

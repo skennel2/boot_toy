@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.article.domain.Account;
-import com.example.demo.article.domain.AccountNotFoundException;
 import com.example.demo.article.domain.Article;
+import com.example.demo.article.domain.exception.AccountNotFoundException;
+import com.example.demo.article.domain.exception.ArticleNotFoundException;
 import com.example.demo.article.dto.ArticleView;
 import com.example.demo.article.repository.AccountRepository;
 import com.example.demo.article.repository.ArticleRepository;
@@ -31,7 +32,7 @@ public class ArticleService {
 	public ArticleView getById(Long id) {
 		return articleRepo.findById(id)
 				.map(this::toViewModel)
-				.orElseThrow(()-> new RuntimeException());
+				.orElseThrow(()-> new ArticleNotFoundException());
 	}
 	
 	public List<ArticleView> getByWriterId(Long writerId){

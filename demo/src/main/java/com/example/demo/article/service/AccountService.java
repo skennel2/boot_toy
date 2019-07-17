@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.article.domain.Account;
-import com.example.demo.article.domain.AccountNotFoundException;
+import com.example.demo.article.domain.exception.AccountNotFoundException;
 import com.example.demo.article.dto.AccountJoinRequest;
 import com.example.demo.article.repository.AccountRepository;
 

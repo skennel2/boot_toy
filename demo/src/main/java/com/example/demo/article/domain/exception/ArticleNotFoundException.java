@@ -1,4 +1,4 @@
-package com.example.demo.article.domain;
+package com.example.demo.article.domain.exception;
 
 public class ArticleNotFoundException extends RuntimeException{
 

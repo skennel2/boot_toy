@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.article.repository.AccountRepository;
 
 @Controller
-@RequestMapping(path = "/pc/account")
-public class AccountController {
+@RequestMapping(path = "/sr/account")
+public class AccountServerRenderingController {
 	@Autowired
 	private AccountRepository accountRepository;
 	
