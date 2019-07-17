@@ -54,4 +54,12 @@ public class CommentService {
 				.map(CommentView::of)
 				.collect(Collectors.toList());
 	}
+	
+	public List<CommentView> getByArticleId(Long articleId) {
+		return commentRepository
+				.findByArticleId(articleId)
+				.stream()
+				.map(CommentView::of)
+				.collect(Collectors.toList());
+	}
 }

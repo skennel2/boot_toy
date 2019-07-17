@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.article.dto.ArticleView;
 import com.example.demo.article.service.ArticleService;
+
 @RestController
 @RequestMapping(path = "/api/article")
 public class ArticleRestController {
@@ -36,6 +37,7 @@ public class ArticleRestController {
 	
 	@GetMapping(path = "/byaccount/{loginId}")
 	public ResponseEntity<List<Resource<ArticleView>>> getByLoginId(@PathVariable String loginId){
+		// TODO 구현 안함
 		return null;
 	}
 }
