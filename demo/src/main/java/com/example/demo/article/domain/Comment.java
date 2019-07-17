@@ -15,7 +15,7 @@ public class Comment extends EntityBase {
 	@JoinColumn(name = "writer")
 	private Account writer;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "article")
 	private Article targetArticle;
 

@@ -54,5 +54,4 @@ public class CommentService {
 				.map(CommentView::of)
 				.collect(Collectors.toList());
 	}
-
 }
