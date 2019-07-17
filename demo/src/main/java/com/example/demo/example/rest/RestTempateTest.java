@@ -1,4 +1,4 @@
-package com.example.demo.rest;
+package com.example.demo.example.rest;
 
 import java.io.IOException;
 
