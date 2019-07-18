@@ -16,6 +16,7 @@ import com.example.demo.article.domain.exception.ArticleNotFoundException;
 import com.example.demo.article.dto.ArticleView;
 import com.example.demo.article.repository.AccountRepository;
 import com.example.demo.article.repository.ArticleRepository;
+import com.example.demo.article.repository.CommentRepository;
 import com.example.demo.article.service.ArticleService;
 
 @RunWith(SpringRunner.class)
@@ -31,6 +32,9 @@ public class ArticleServiceTest {
 	@Autowired
 	AccountRepository accountRepository;
 
+	@Autowired
+	CommentRepository commentRepository;
+	
 	private Account account;
 
 	@Test
@@ -61,6 +65,7 @@ public class ArticleServiceTest {
 	
 	@Before
 	public void before() {
+		commentRepository.deleteAll();
 		articleRepository.deleteAll();
 		accountRepository.deleteAll();
 
