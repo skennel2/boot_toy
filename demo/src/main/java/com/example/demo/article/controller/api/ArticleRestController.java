@@ -32,19 +32,19 @@ public class ArticleRestController {
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Resource<ArticleView>> getById(@PathVariable Long id) {
 		ArticleView article = articleService.getById(id);		
-		return ResponseEntity.ok(toCommentLinkAddedResource(article));
+		return ResponseEntity.ok(toResourceWithCommentLink(article));
 	}
 	
 	@GetMapping(path = "/byaccount/{loginId}")
 	public ResponseEntity<List<Resource<ArticleView>>> getByLoginId(@PathVariable String loginId){
 		List<Resource<ArticleView>> list = articleService.getByWriterLoginId(loginId).stream()
-			.map(this::toCommentLinkAddedResource)
+			.map(this::toResourceWithCommentLink)
 			.collect(Collectors.toList());
 		
 		return ResponseEntity.ok(list);
 	}
 	
-	private Resource<ArticleView> toCommentLinkAddedResource(ArticleView articleView) {
+	private Resource<ArticleView> toResourceWithCommentLink(ArticleView articleView) {
 		Resource<ArticleView> articleResource = new Resource<>(articleView);		
 		Link link = linkTo(methodOn(CommentRestController.class).getByArticleId(articleView.getId()))
 				.withRel("comments")
