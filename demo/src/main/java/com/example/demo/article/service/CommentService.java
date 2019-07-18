@@ -46,6 +46,11 @@ public class CommentService {
 		Comment comment = new Comment(writer, article, contents);
 		commentRepository.save(comment);
 	}
+	
+	@Transactional
+	public void deleteById(Long id) {
+		commentRepository.deleteById(id);
+	}
 
 	public List<CommentView> getByWriterId(Long writerId) {
 		return commentRepository
