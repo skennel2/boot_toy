@@ -8,12 +8,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.article.controller.api.AddCommentRequest;
 import com.example.demo.article.domain.Account;
 import com.example.demo.article.domain.Article;
 import com.example.demo.article.domain.Comment;
 import com.example.demo.article.domain.exception.AccountNotFoundException;
 import com.example.demo.article.domain.exception.ArticleNotFoundException;
+import com.example.demo.article.dto.AddCommentRequest;
 import com.example.demo.article.dto.CommentView;
 import com.example.demo.article.repository.AccountRepository;
 import com.example.demo.article.repository.ArticleRepository;

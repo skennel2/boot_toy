@@ -1,9 +1,16 @@
-package com.example.demo.article.controller.api;
+package com.example.demo.article.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AddCommentRequest {
-
+	
+	@JsonProperty(value = "writer_id")
 	private Long writerId;
+	
+	@JsonProperty(value = "article_id")
 	private Long articleId;
+	
+	@JsonProperty(value = "contents")
 	private String contents;
 
 	public Long getWriterId() {
