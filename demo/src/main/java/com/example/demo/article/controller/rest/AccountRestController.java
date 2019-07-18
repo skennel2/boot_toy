@@ -57,7 +57,7 @@ public class AccountRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id) {
+	public ResponseEntity<?> deleteById(@PathVariable Long id) {
 		accountService.deleteById(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
