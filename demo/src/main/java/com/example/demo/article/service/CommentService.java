@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.article.controller.rest.AddCommentRequest;
+import com.example.demo.article.controller.api.AddCommentRequest;
 import com.example.demo.article.domain.Account;
 import com.example.demo.article.domain.Article;
 import com.example.demo.article.domain.Comment;

@@ -1,4 +1,4 @@
-package com.example.demo.article.controller.rest;
+package com.example.demo.article.controller.api;
 
 import java.util.List;
 

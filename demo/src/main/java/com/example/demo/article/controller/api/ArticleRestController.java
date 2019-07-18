@@ -1,4 +1,4 @@
-package com.example.demo.article.controller.rest;
+package com.example.demo.article.controller.api;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
