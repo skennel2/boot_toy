@@ -25,7 +25,7 @@ public class ArticleRestController {
 	private ArticleService articleService; 
 		
 	@Autowired
-	private ArticleRestController(ArticleService articleService) {
+	public ArticleRestController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
 

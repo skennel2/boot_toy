@@ -28,7 +28,7 @@ public class AccountRestController {
 	private AccountService accountService;
 	
 	@Autowired
-	private AccountRestController(AccountService accountService) {
+	public AccountRestController(AccountService accountService) {
 		this.accountService = accountService;
 	}
 
