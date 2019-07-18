@@ -19,10 +19,14 @@ import com.example.demo.article.service.CommentService;
 
 @RestController
 @RequestMapping(path = "/api/comment")
-public class CommentRestController {
-
-	@Autowired
+public class CommentRestController {	
+	
 	private CommentService commentService;
+	
+	@Autowired
+	private CommentRestController(CommentService commentService) {
+		this.commentService = commentService;
+	}
 
 	@GetMapping(path = "/byarticle/{articleId}")
 	public ResponseEntity<List<CommentView>> getByArticleId(@PathVariable Long articleId) {

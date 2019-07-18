@@ -14,8 +14,12 @@ import com.example.demo.article.repository.AccountRepository;
 @Service
 public class AccountService {
 
-	@Autowired
 	private AccountRepository accountRepo;
+	
+	@Autowired
+	private AccountService(AccountRepository accountRepo) {
+		this.accountRepo = accountRepo;
+	}
 
 	public Account getById(Long id) {
 		return accountRepo.findById(id)

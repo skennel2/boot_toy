@@ -21,10 +21,14 @@ import com.example.demo.article.service.ArticleService;
 @RestController
 @RequestMapping(path = "/api/article")
 public class ArticleRestController {
-	
-	@Autowired
+		
 	private ArticleService articleService; 
-	
+		
+	@Autowired
+	private ArticleRestController(ArticleService articleService) {
+		this.articleService = articleService;
+	}
+
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Resource<ArticleView>> getById(@PathVariable Long id) {
 		ArticleView article = articleService.getById(id);		

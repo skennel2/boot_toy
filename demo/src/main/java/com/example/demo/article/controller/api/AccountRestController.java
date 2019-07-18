@@ -24,9 +24,13 @@ import com.example.demo.article.service.AccountService;
 @RestController
 @RequestMapping(path = "/api/account")
 public class AccountRestController {
-
-	@Autowired
+	
 	private AccountService accountService;
+	
+	@Autowired
+	private AccountRestController(AccountService accountService) {
+		this.accountService = accountService;
+	}
 
 	@RequestMapping(method = RequestMethod.OPTIONS)
 	public ResponseEntity<?> options() {
