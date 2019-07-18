@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.article.domain.Account;
@@ -69,9 +71,10 @@ public class CommentService {
 	
 	public List<CommentView> getByArticleId(Long articleId) {
 		return commentRepository
-				.findByArticleId(articleId)
+				.findByArticleId(articleId, Sort.by(Direction.ASC, "createdDateTime"))
 				.stream()
 				.map(CommentView::of)
 				.collect(Collectors.toList());
 	}
+
 }
