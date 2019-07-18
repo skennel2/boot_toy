@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.article.controller.rest.AddCommentRequest;
 import com.example.demo.article.domain.Account;
 import com.example.demo.article.domain.Article;
 import com.example.demo.article.domain.Comment;
@@ -45,6 +46,12 @@ public class CommentService {
 
 		Comment comment = new Comment(writer, article, contents);
 		commentRepository.save(comment);
+	}
+	
+
+	@Transactional
+	public void addComment(AddCommentRequest request) {
+		addComment(request.getWriterId(), request.getArticleId(), request.getContents());
 	}
 	
 	@Transactional
