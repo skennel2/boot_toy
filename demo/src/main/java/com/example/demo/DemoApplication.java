@@ -50,6 +50,9 @@ public class DemoApplication implements CommandLineRunner{
 		Article article = new Article("Hello", "Hello World", account); 
 		articleRepository.save(article);
 		
+		Article article2 = new Article("This is Mock Article", "Hello World", account); 
+		articleRepository.save(article2);
+		
 		Comment comment = new Comment(account, article, "This is Comment");
 		Comment comment2 = new Comment(account, article, "This is Comment2");
 		commentRepository.save(comment);

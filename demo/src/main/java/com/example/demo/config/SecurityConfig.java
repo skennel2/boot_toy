@@ -22,13 +22,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf()
 				.disable()
 			.authorizeRequests()
-				.antMatchers("/api/**").authenticated()
-				.and()
-			.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-			.httpBasic();
-		
+				.antMatchers("/login**", "/oauth/token", "/h2-console").permitAll()
+				.antMatchers("/api/**").permitAll();//.authenticated();
+//				.and()
+//			.sessionManagement()
+//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//				.and()
+//			.formLogin();
+//			.httpBasic()
+//				.and()
+//			.oauth2Login()
+//				.;
+//		
 		// 매번 Request 마다 ID:PWD를 전송하기 때문에 SSL(HTTPS) 사용이 필수
 		// 8443이 SSL 포트일 경우 사용시
 		//http.portMapper().http(8080).mapsTo(8443);
