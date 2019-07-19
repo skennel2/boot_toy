@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Comment extends EntityBase {
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "writer")
 	private Account writer;
 

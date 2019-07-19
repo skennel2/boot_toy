@@ -47,6 +47,13 @@ public class CommentServiceTest {
 		assertEquals(2, comments.size());
 	}
 	
+	@Test
+	public void getByArticleIdTest() {
+		List<CommentView> comments = commentService.getByArticleId(article.getId());
+		
+		assertEquals(2, comments.size());
+	}
+	
 	@Before
 	public void before() {
 		commentRepository.deleteAll();
