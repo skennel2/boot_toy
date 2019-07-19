@@ -11,17 +11,7 @@ public class ArticleView {
 	private Long writerId;
 	private String writerLoginId;
 	private LocalDateTime createdDate;
-
-	public static ArticleView of(Article article) {
-		ArticleView av = new ArticleView();
-		av.setArticleId(article.getId());
-		av.setSubject(article.getSubject());
-		av.setContents(article.getContents());
-		av.setWriterId(article.getWriter().getId());
-		av.setWriterLoginId(article.getWriter().getLoginId());
-		av.setCreatedDate(article.getCreatedDateTime());
-		return av;
-	}
+	private int countOfComments;
 	
 	public Long getArticleId() {
 		return articleId;
@@ -61,6 +51,14 @@ public class ArticleView {
 
 	public void setWriterLoginId(String writerLoginId) {
 		this.writerLoginId = writerLoginId;
+	}
+	
+	public int getCountOfComments() {
+		return countOfComments;
+	}
+
+	public void setCountOfComments(int countOfComments) {
+		this.countOfComments = countOfComments;
 	}
 
 	public LocalDateTime getCreatedDate() {
