@@ -9,6 +9,8 @@ public class CommentView {
 
 	private Long writerId;
 
+	private String writerLoginId;
+
 	private Long articleId;
 
 	private String contents;
@@ -22,7 +24,7 @@ public class CommentView {
 		view.setWriterId(entity.getWriter().getId());
 		view.setContents(entity.getContents());
 		view.setCreatedDateTime(entity.getCreatedDateTime());
-
+		view.setWriterLoginId(entity.getWriter().getLoginId());
 		return view;
 	}
 
@@ -40,6 +42,14 @@ public class CommentView {
 
 	public void setWriterId(Long writerId) {
 		this.writerId = writerId;
+	}
+
+	public String getWriterLoginId() {
+		return writerLoginId;
+	}
+
+	public void setWriterLoginId(String writerLoginId) {
+		this.writerLoginId = writerLoginId;
 	}
 
 	public Long getArticleId() {
@@ -68,8 +78,8 @@ public class CommentView {
 
 	@Override
 	public String toString() {
-		return "CommentView [commentId=" + commentId + ", writerId=" + writerId + ", articleId=" + articleId
-				+ ", contents=" + contents + ", createdDateTime=" + createdDateTime + "]";
+		return "CommentView [commentId=" + commentId + ", writerId=" + writerId + ", writerLoginId=" + writerLoginId
+				+ ", articleId=" + articleId + ", contents=" + contents + ", createdDateTime=" + createdDateTime + "]";
 	}
 
 }
