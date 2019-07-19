@@ -46,7 +46,7 @@ public class ArticleRestController {
 	
 	private Resource<ArticleView> toResourceWithCommentLink(ArticleView articleView) {
 		Resource<ArticleView> articleResource = new Resource<>(articleView);		
-		Link link = linkTo(methodOn(CommentRestController.class).getByArticleId(articleView.getId()))
+		Link link = linkTo(methodOn(CommentRestController.class).getByArticleId(articleView.getArticleId()))
 				.withRel("comments")
 				.withTitle("comment_list");
 		articleResource.add(link);		

@@ -2,6 +2,7 @@ package com.example.demo.article.dto;
 
 import java.time.LocalDateTime;
 
+import com.example.demo.article.domain.Account;
 import com.example.demo.article.domain.Comment;
 
 public class CommentView {
@@ -18,13 +19,17 @@ public class CommentView {
 	private LocalDateTime createdDateTime;
 
 	public static CommentView of(Comment entity) {
+		// TODO WHY writer.getLoginId() 호출하면 could not initialize proxy Exception이 발생한다.  
+		Account writer = entity.getWriter();
+		
 		CommentView view = new CommentView();
 		view.setCommentId(entity.getId());
 		view.setArticleId(entity.getArticle().getId());
-		view.setWriterId(entity.getWriter().getId());
+		view.setWriterId(writer.getId());
+		view.setWriterLoginId(writer.getLoginId());
 		view.setContents(entity.getContents());
 		view.setCreatedDateTime(entity.getCreatedDateTime());
-		view.setWriterLoginId(entity.getWriter().getLoginId());
+
 		return view;
 	}
 

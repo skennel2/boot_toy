@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.example.demo.article.domain.Article;
 
 public class ArticleView {
-	private Long id;
+	private Long articleId;
 	private String subject;
 	private String contents;
 	private Long writerId;
@@ -14,7 +14,7 @@ public class ArticleView {
 
 	public static ArticleView of(Article article) {
 		ArticleView av = new ArticleView();
-		av.setId(article.getId());
+		av.setArticleId(article.getId());
 		av.setSubject(article.getSubject());
 		av.setContents(article.getContents());
 		av.setWriterId(article.getWriter().getId());
@@ -23,12 +23,12 @@ public class ArticleView {
 		return av;
 	}
 	
-	public Long getId() {
-		return id;
+	public Long getArticleId() {
+		return articleId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setArticleId(Long id) {
+		this.articleId = id;
 	}
 
 	public String getSubject() {
@@ -73,7 +73,7 @@ public class ArticleView {
 
 	@Override
 	public String toString() {
-		return "ArticleView [id=" + id + ", subject=" + subject + ", contents=" + contents + ", writerId=" + writerId
+		return "ArticleView [id=" + articleId + ", subject=" + subject + ", contents=" + contents + ", writerId=" + writerId
 				+ ", writerLoginId=" + writerLoginId + ", createdDate=" + createdDate + "]";
 	}
 
