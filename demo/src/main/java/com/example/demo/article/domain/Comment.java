@@ -19,7 +19,7 @@ public class Comment extends EntityBase {
 	@JoinColumn(name = "article")
 	private Article article;
 
-	@Column(name = "contents", length = 300)
+	@Column(name = "contents", length = 1000)
 	private String contents;
 
 	public Comment(Account writer, Article targetArticle, String contents) {

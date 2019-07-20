@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.article.domain.exception.ArticleNotFoundException;
 import com.example.demo.article.dto.ArticleView;
 import com.example.demo.article.service.ArticleService;
 
@@ -52,5 +54,10 @@ public class ArticleRestController {
 		articleResource.add(link);		
 		
 		return articleResource;
+	}
+	
+	@ExceptionHandler(ArticleNotFoundException.class)
+	public ResponseEntity<?> notFound(){
+		return ResponseEntity.noContent().build();
 	}
 }

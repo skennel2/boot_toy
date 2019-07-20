@@ -12,7 +12,7 @@ public class Article extends EntityBase {
 	@Column(name = "subject", length = 30, nullable = false)
 	private String subject;
 
-	@Column(name = "contents", length = 300, nullable = true)
+	@Column(name = "contents", length = 3000, nullable = true)
 	private String contents;
 
 	@ManyToOne(fetch = FetchType.EAGER)
