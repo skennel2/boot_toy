@@ -53,6 +53,13 @@ public class ArticleService {
 				.collect(Collectors.toList());
 	}
 	
+	public List<ArticleView> getAll(){
+		return articleRepo.findAll()
+				.stream()
+				.map(this::toViewModel)
+				.collect(Collectors.toList());
+	}
+	
 	@Transactional
 	public void addPost(Long writerId, String subject, String contents) {
 		Account writer = accountRepo.findById(writerId)

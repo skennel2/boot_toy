@@ -46,6 +46,15 @@ public class ArticleRestController {
 		return ResponseEntity.ok(list);
 	}
 	
+	@GetMapping(path = "/list")
+	public ResponseEntity<List<Resource<ArticleView>>> getAll(){
+		List<Resource<ArticleView>> list = articleService.getAll().stream()
+			.map(this::toResourceWithCommentLink)
+			.collect(Collectors.toList());
+		
+		return ResponseEntity.ok(list);
+	}
+	
 	private Resource<ArticleView> toResourceWithCommentLink(ArticleView articleView) {
 		Resource<ArticleView> articleResource = new Resource<>(articleView);		
 		Link link = linkTo(methodOn(CommentRestController.class).getByArticleId(articleView.getArticleId()))
