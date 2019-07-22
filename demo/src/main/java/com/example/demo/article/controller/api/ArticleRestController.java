@@ -46,9 +46,9 @@ public class ArticleRestController {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping(path = "/list")
-	public ResponseEntity<List<Resource<ArticleView>>> getAll(){
-		List<Resource<ArticleView>> list = articleService.getAll().stream()
+	@GetMapping(path = "/list/{startIndex}/{amount}")
+	public ResponseEntity<List<Resource<ArticleView>>> getAll(@PathVariable int startIndex, @PathVariable int amount){
+		List<Resource<ArticleView>> list = articleService.getAllByPaging(startIndex, amount).stream()
 			.map(this::toResourceWithCommentLink)
 			.collect(Collectors.toList());
 		

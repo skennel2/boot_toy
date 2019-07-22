@@ -53,6 +53,12 @@ public class DemoApplication implements CommandLineRunner{
 		Article article2 = new Article("This is Mock Article", "Hello World", account); 
 		articleRepository.save(article2);
 		
+		Article articleMock;
+		for (int i = 0; i < 100; i++) {
+			articleMock = new Article("Test".concat(String.valueOf(i)), String.valueOf(i), account); 
+			articleRepository.save(articleMock);
+		}
+		
 		Comment comment = new Comment(account, article, "This is Comment");
 		Comment comment2 = new Comment(account, article, "This is Comment2");
 		commentRepository.save(comment);

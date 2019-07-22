@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.article.domain.Account;
@@ -53,11 +57,12 @@ public class ArticleService {
 				.collect(Collectors.toList());
 	}
 	
-	public List<ArticleView> getAll(){
-		return articleRepo.findAll()
-				.stream()
-				.map(this::toViewModel)
-				.collect(Collectors.toList());
+	public List<ArticleView> getAllByPaging(int startIndex, int amountOfItem){
+		Pageable pageable = PageRequest.of(startIndex, amountOfItem, new Sort(Direction.DESC, "Id"));
+		return articleRepo.findAll(pageable)
+			.stream()
+			.map(this::toViewModel)
+			.collect(Collectors.toList());		
 	}
 	
 	@Transactional
