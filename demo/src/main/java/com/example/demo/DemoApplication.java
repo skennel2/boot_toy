@@ -54,7 +54,7 @@ public class DemoApplication implements CommandLineRunner{
 		articleRepository.save(article2);
 		
 		Article articleMock;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 500; i++) {
 			articleMock = new Article("Test".concat(String.valueOf(i)), String.valueOf(i), account); 
 			articleRepository.save(articleMock);
 		}
