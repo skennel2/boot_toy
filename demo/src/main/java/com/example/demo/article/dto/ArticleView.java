@@ -2,8 +2,6 @@ package com.example.demo.article.dto;
 
 import java.time.LocalDateTime;
 
-import com.example.demo.article.domain.Article;
-
 public class ArticleView {
 	private Long articleId;
 	private String subject;
