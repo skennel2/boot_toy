@@ -48,7 +48,7 @@ public class CommentRestController {
 	@PutMapping
 	public ResponseEntity<?> add(@RequestBody AddCommentRequest request){
 		commentService.addComment(request);
-		rabbitTemplate.convertAndSend(request);
+		rabbitTemplate.convertAndSend("comment.add", request);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
