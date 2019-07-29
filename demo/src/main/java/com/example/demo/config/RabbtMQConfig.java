@@ -33,11 +33,12 @@ public class RabbtMQConfig {
 		return containerFactory;
 	}
 	
-	// 빈으로 등록해주지 않으면 동작하지 않음....
+	// 빈으로 등록해주지 않으면 동작하지 않음
     @Bean
     public Jackson2JsonMessageConverter converter() {
         return new Jackson2JsonMessageConverter();
     }
+    
     @Bean
     public MappingJackson2MessageConverter jackson2Converter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();

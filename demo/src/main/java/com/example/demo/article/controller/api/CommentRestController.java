@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.article.dto.AddCommentRequest;
 import com.example.demo.article.dto.CommentView;
+import com.example.demo.article.message.EventPublisher;
 import com.example.demo.article.service.CommentService;
 
 @RestController
@@ -24,12 +25,12 @@ public class CommentRestController {
 	
 	private CommentService commentService;
 	
-	private RabbitTemplate rabbitTemplate;
+	private EventPublisher eventPublisher;
 	
 	@Autowired
-	public CommentRestController(CommentService commentService, RabbitTemplate rabbitTemplate) {
+	public CommentRestController(CommentService commentService, EventPublisher eventPublisher) {
 		this.commentService = commentService;
-		this.rabbitTemplate = rabbitTemplate;
+		this.eventPublisher = eventPublisher;
 	}
 
 	@GetMapping(path = "/byarticle/{articleId}")
@@ -48,7 +49,7 @@ public class CommentRestController {
 	@PutMapping
 	public ResponseEntity<?> add(@RequestBody AddCommentRequest request){
 		commentService.addComment(request);
-		rabbitTemplate.convertAndSend("comment.add", request);
+		eventPublisher.publishAddCommentEvent(request);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
