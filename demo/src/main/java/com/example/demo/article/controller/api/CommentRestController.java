@@ -2,6 +2,7 @@ package com.example.demo.article.controller.api;
 
 import java.util.List;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,12 @@ public class CommentRestController {
 	
 	private CommentService commentService;
 	
+	private RabbitTemplate rabbitTemplate;
+	
 	@Autowired
-	public CommentRestController(CommentService commentService) {
+	public CommentRestController(CommentService commentService, RabbitTemplate rabbitTemplate) {
 		this.commentService = commentService;
+		this.rabbitTemplate = rabbitTemplate;
 	}
 
 	@GetMapping(path = "/byarticle/{articleId}")
@@ -44,6 +48,7 @@ public class CommentRestController {
 	@PutMapping
 	public ResponseEntity<?> add(@RequestBody AddCommentRequest request){
 		commentService.addComment(request);
+		rabbitTemplate.convertAndSend(request);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

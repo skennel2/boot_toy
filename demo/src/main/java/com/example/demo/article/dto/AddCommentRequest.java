@@ -1,9 +1,16 @@
 package com.example.demo.article.dto;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AddCommentRequest {
+public class AddCommentRequest implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2428164713665792993L;
+
 	@JsonProperty(value = "writer_id")
 	private Long writerId;
 	
