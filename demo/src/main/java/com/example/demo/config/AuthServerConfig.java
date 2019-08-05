@@ -1,29 +1,65 @@
 package com.example.demo.config;
 
-//@Configuration
-//@EnableAuthorizationServer
-//public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
-//	@Autowired
-//	private AuthenticationManager authenticationManager;
-//	
-//	@Override
-//	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//		endpoints.authenticationManager(authenticationManager);
-//	}
-//	
-//	@Override
-//	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-//		security.checkTokenAccess("isAuthenticated()");
-//	}
-//	
-//	@Override
-//	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//		clients.inMemory().withClient("foo")
-//			.authorizedGrantTypes("client_creditials", "password")
-//			.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-//			.scopes("read", "write", "trust")
-//			.resourceIds("oauth2-resource")
-//			.accessTokenValiditySeconds(500)
-//			.secret("bar");
-//	}
-//}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+
+/**
+ * 인증서버 구성
+ * 
+ * @author skennel
+ *
+ */
+@Configuration
+@EnableAuthorizationServer
+public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
+	
+	private AuthenticationManager authenticationManager;
+	
+	private TokenStore tokenStore;
+	
+	private PasswordEncoder passwordEncoder;
+			
+	@Autowired
+	public AuthServerConfig(AuthenticationManager authenticationManager, TokenStore tokenStore,
+			PasswordEncoder passwordEncoder) {
+		this.authenticationManager = authenticationManager;
+		this.tokenStore = tokenStore;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	/**
+	 * 클라이언트 설정 
+	 */
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clients
+			.inMemory()
+				.withClient("yunsu_client") // 클라이언트를 등록한다.
+				.secret(passwordEncoder.encode("{noop}yunsu_secret")) // 클라이언트의 secret을 지정한다.
+				.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+				.accessTokenValiditySeconds(5000) // 액세스토큰이 얼마의 시간동안 유효한가?
+				.refreshTokenValiditySeconds(15000)
+				.scopes("read", "write", "trust");			
+	}
+	
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		endpoints
+			.authenticationManager(authenticationManager)
+			.tokenStore(tokenStore);
+	}
+	
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		security.checkTokenAccess("isAuthenticated()");
+	}
+	
+}

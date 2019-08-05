@@ -1,11 +1,21 @@
 package com.example.demo.config;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * 참고자료
@@ -13,53 +23,61 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author skennel
  *
  */
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Bean
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf()
+	public AuthenticationManager authenticationManager() throws Exception {
+		return super.authenticationManager();
+	}
+	
+	@Bean
+	public TokenStore tokenStore() {
+		return new InMemoryTokenStore();
+	}
+	
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() { 
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+		corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+		corsConfiguration.setAllowedMethods(Arrays.asList("*"));
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration);
+		
+		return source;
+	}
+	
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
+		http
+			.cors()
+				.configurationSource(corsConfigurationSource())
+				.and()
+			.csrf()
+				.disable()
+			.anonymous()
 				.disable()
 			.authorizeRequests()
-				.antMatchers("/login**", "/oauth/token", "/h2-console").permitAll()
-				.antMatchers("/api/**").permitAll();//.authenticated();
-//				.and()
-//			.sessionManagement()
-//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//				.and()
-//			.formLogin();
-//			.httpBasic()
-//				.and()
-//			.oauth2Login()
-//				.;
-//		
+				//.antMatchers("/login**", "/oauth/token", "/h2-console").permitAll()
+				.antMatchers("/api/**").authenticated();
 		// 매번 Request 마다 ID:PWD를 전송하기 때문에 SSL(HTTPS) 사용이 필수
 		// 8443이 SSL 포트일 경우 사용시
 		//http.portMapper().http(8080).mapsTo(8443);
 	}	
 	
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		super.configure(web);
-	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService())
-			.passwordEncoder(new NoOpPasswordEncoder());	
+			.passwordEncoder(passwordEncoder);	
 
 		super.configure(auth);
-	}
-	
-	protected class NoOpPasswordEncoder implements PasswordEncoder{
-		@Override
-		public boolean matches(CharSequence rawPassword, String encodedPassword) {				
-			return rawPassword.toString().equals(encodedPassword);
-		}
-		
-		@Override
-		public String encode(CharSequence rawPassword) {
-			return rawPassword.toString();
-		}
 	}
 }
